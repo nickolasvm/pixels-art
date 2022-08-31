@@ -20,9 +20,6 @@
 .color-fixed {
     background-color: rgb(0, 0, 0);
 }
-.color-random {
-    background-color: rgb(255, 0, 0);
-}
 
 #button-random-color {
     background-color: rgb(55, 134, 106);
