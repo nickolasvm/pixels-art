@@ -1,20 +1,49 @@
 * {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* para centralizar na tela o conteúdo */
+body, html {
+    height: 100%;
+}
+
+
+body {
+    background-color: rgb(197, 160, 233);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* flex-direction: collum para centralizar um em cima do outro */
+    flex-direction: column;
+}
+
+.nav-bar {
+    width: 80%;
+    background-color: rgb(253, 253, 253);
 }
 
 #title {
     text-align: center;
-    background-color: red;
+    color: white;
+    background-color: rgb(56, 56, 56);
+    padding: 20px;
+    margin: 15px;
+    margin-top: 10px;
+    border-radius: 10px;
 }
 
 #color-palette {
     display: flex;
+    justify-content: center;
 }
 
 .color {
     margin: 0.5em;
     padding: 2em;
     border: 1px solid black;
+    border-radius: 5px;
 }
 
 .color-fixed {
@@ -22,13 +51,32 @@
 }
 
 #button-random-color {
-    background-color: rgb(55, 134, 106);
+    background-color: rgb(116, 116, 116);
     border: none;
-    color: white;
+    color: black;
     margin: 0.5em;
     padding: 15px 32px;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
     font-size: 16px;
+}
+
+#pixel-board {
+    margin-top: 30px;
+    background-color: black;
+    border-radius: 5px;
+    display: grid;
+    /* 
+        grid template repeat(how many blocks, block-size)
+        1fr = 1 fraction unit
+    */
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+}
+
+.pixel {
+    border: 1px solid black;
+    border-radius: 2px;
+    height: 40px;
+    width: 40px;
+    background-color: white;
 }
