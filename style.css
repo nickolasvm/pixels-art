@@ -9,9 +9,14 @@ body, html {
     height: 100%;
 }
 
+header {
+    width: 100%;
+}
 
 body {
-    background-color: rgb(197, 160, 233);
+    background-color: rgb(255, 254, 215);
+    background-image: url(./images/wallpaper_pixel_art.png);
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,13 +26,13 @@ body {
 
 .nav-bar {
     width: 80%;
-    background-color: rgb(253, 253, 253);
+    background-color: rgba(56, 56, 56, 0.582);
+    border-radius: 35px;
 }
 
 #title {
     text-align: center;
     color: white;
-    background-color: rgb(56, 56, 56);
     padding: 20px;
     margin: 15px;
     margin-top: 10px;
@@ -37,6 +42,12 @@ body {
 #color-palette {
     display: flex;
     justify-content: center;
+    flex-direction: row;
+    padding-bottom: 2em;
+}
+
+#colors {
+    display: flex;
 }
 
 .color {
@@ -44,21 +55,46 @@ body {
     padding: 2em;
     border: 1px solid black;
     border-radius: 5px;
+    box-shadow: 0.2em 0.2em 1em;
 }
 
 .color-fixed {
     background-color: rgb(0, 0, 0);
 }
 
+#btn-div {
+    padding-left: 20%;
+    display: flex;
+    justify-content: center;
+}
+
 #button-random-color {
-    background-color: rgb(116, 116, 116);
+    background-color: rgb(69, 202, 102);
+    color: black;
+    border-radius: 10px;
+    border: none;
+    margin: 0.5em;
+    padding: 1.5em;
+    text-align: center;
+    font-size: 16px;
+    box-shadow: 0.5em 0.5em 1em;
+}
+
+#button-random-color:hover {
+    background-color: rgb(66, 175, 92);
+    color: white;
+    border-radius: 10px;
     border: none;
     color: black;
     margin: 0.5em;
-    padding: 15px 32px;
+    padding: 1.5em;
     text-align: center;
     font-size: 16px;
+    box-shadow: 0.5em 0.5em 1em;
+    cursor:pointer;
 }
+
+
 
 #pixel-board {
     margin-top: 30px;
