@@ -1,6 +1,7 @@
 window.onload = function() {
     const colorDiv = document.getElementsByClassName('color-random');
     const randomBtn = document.getElementById('button-random-color');
+    const clearBtn = document.getElementById('clear-board');
 
     // check if localStorage is empty or not
     // if not, update the color
@@ -50,6 +51,7 @@ window.onload = function() {
         colorPal[i].addEventListener('click', pickColor);
     }
 
+    // make black the deafult color picked
     let colorPicked = 'rgb(0,0,0)';
     function pickColor(element) {
         // getComputedStyle --0 get all the styles that the element hold in a object format
@@ -65,21 +67,43 @@ window.onload = function() {
         element.target.classList.add('selected');
     }
 
-    // populate pixel grid
+    // populate pixel grid and add eventlistener for drawing
     const pixelBoard = document.getElementById('pixel-board');
-    const pixel = document.createElement('div');
+
+
+    // 'desenhar' is set as false by default
+    let desenhar = false; 
     function includePixels(tamanho) {
+        // tamanho * tamanho to make a perfect square
         for (let i = 0; i < tamanho * tamanho; i += 1) {
             const pixel = document.createElement('div');
             pixel.classList.add('pixel');
+
+            // add eventListener to paint the board with the selected color
+            pixel.addEventListener('mouseover', function(){
+                if(!desenhar) return
+                pixel.style.backgroundColor = colorPicked;
+            })
+            pixel.addEventListener('mousedown', function(){
+                pixel.style.backgroundColor = colorPicked;
+            })
             pixelBoard.appendChild(pixel);
 
-            // add eventListener to paint the board with teh selected color
-            pixel.addEventListener('mouseover', function(){
-                pixel.style.backgroundColor = colorPicked;
+            // function to clean after Limpar is pressed
+            clearBtn.addEventListener('click', function(){
+                pixel.style.backgroundColor = 'white';
             })
         }
     }
+    // when mouse is down, 'desenhar' turn into true, allowing to draw
+    window.addEventListener("mousedown", function(){
+        desenhar = true
+    })
+    // when mouse is up, 'desenhar' is set as false
+    window.addEventListener("mouseup", function(){
+        desenhar = false
+    })
+
     includePixels(5);
     
 }
