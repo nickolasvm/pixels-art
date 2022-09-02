@@ -40,41 +40,46 @@ window.onload = function() {
 
         localStorage.setItem('colorPalette', JSON.stringify(storagePalette));
     }
-
     randomBtn.addEventListener('click', randomColorGen);
 
     /********************************************************/
-    const color1 = document.getElementById('color-1');
-    const color2 = document.getElementById('color-2');
-    const color3 = document.getElementById('color-3');
-    const color4 = document.getElementById('color-4');
-    let colorPicked = '';
+    const colorPal = document.getElementsByClassName('color');
 
+    // function to pick the color form the navbar and make it selected
+    for (let i = 0; i < colorPal.length; i += 1) {
+        colorPal[i].addEventListener('click', pickColor);
+    }
+
+    let colorPicked = 'rgb(0,0,0)';
     function pickColor(element) {
         // getComputedStyle --0 get all the styles that the element hold in a object format
         colorPicked = getComputedStyle(element.target)['backgroundColor'];
-        console.log(colorPicked);
-    }
 
-    color1.addEventListener('click', pickColor)
-    color2.addEventListener('click', pickColor)
-    color3.addEventListener('click', pickColor)
-    color4.addEventListener('click', pickColor)
+        for (let i = 0; i < colorPal.length; i += 1) {
+            const color = colorPal[i];
+            color.classList.remove('selected');
+
+            for (let j = 0; j < colorPal[i].classList.length; j += 1) {
+            }
+        }
+        element.target.classList.add('selected');
+    }
 
     // populate pixel grid
     const pixelBoard = document.getElementById('pixel-board');
     const pixel = document.createElement('div');
     function includePixels(tamanho) {
-        for (let i = 0; i < tamanho; i += 1) {
+        for (let i = 0; i < tamanho * tamanho; i += 1) {
             const pixel = document.createElement('div');
             pixel.classList.add('pixel');
             pixelBoard.appendChild(pixel);
 
-                    
+            // add eventListener to paint the board with teh selected color
             pixel.addEventListener('mouseover', function(){
                 pixel.style.backgroundColor = colorPicked;
             })
         }
     }
-    includePixels(25);
+    includePixels(5);
+    
 }
