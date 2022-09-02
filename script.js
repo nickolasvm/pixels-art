@@ -77,6 +77,8 @@ window.onload = function() {
         // tamanho * tamanho to make a perfect square
         for (let i = 0; i < tamanho * tamanho; i += 1) {
             const pixel = document.createElement('div');
+            // set attribute draggable false to prevent dragging the paint pixels
+            pixel.setAttribute('draggable', false)
             pixel.classList.add('pixel');
 
             // add eventListener to paint the board with the selected color
@@ -88,13 +90,9 @@ window.onload = function() {
                 pixel.style.backgroundColor = colorPicked;
             })
             pixelBoard.appendChild(pixel);
-
-            // function to clean after Limpar is pressed
-            clearBtn.addEventListener('click', function(){
-                pixel.style.backgroundColor = 'white';
-            })
         }
     }
+    includePixels(5);
     // when mouse is down, 'desenhar' turn into true, allowing to draw
     window.addEventListener("mousedown", function(){
         desenhar = true
@@ -104,6 +102,11 @@ window.onload = function() {
         desenhar = false
     })
 
-    includePixels(5);
-    
+    // function to clean after Limpar is pressed
+    const pixel = document.getElementsByClassName('pixel');
+    clearBtn.addEventListener('click', function(){
+        for (i = 0; i < pixel.length; i += 1) {
+            pixel[i].style.backgroundColor = 'white';
+        }
+    })
 }
