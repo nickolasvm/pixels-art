@@ -12,16 +12,18 @@
             </header>
             <div id="colors">
                 <div id="color-palette">
-                    <div class="selected color color-fixed"></div>
-                    <div class="color color-random"></div>
-                    <div class="color color-random"></div>
-                    <div class="color color-random"></div>
+                    <input type="color" value="#000000" class="selected color color-fixed"></input>
+                    <input type="color" value="#efefef" class="color color-random"></input>
+                    <input type="color" value="#efefef" class="color color-random"></input>
+                    <input type="color" value="#efefef" class="color color-random"></input>
                 </div>
-                <div id="btn-div">
+                <div class="btn-div">
                     <button id="button-random-color" class="btn">Cores aleatórias</button>
-                    <button id="clear-board" class="btn">Limpar</button>
                 </div>
             </div>
+        </div>
+        <div class="clear-board-container">
+            <button id="clear-board" class="btn">Limpar</button>
         </div>
         <div id='board-div' draggable="false">
             <!-- <div id="pixel-board" draggable="false"> -->

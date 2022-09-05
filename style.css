@@ -47,7 +47,7 @@ body {
 }
 .color {
     margin: 0.5em;
-    padding: 2em;
+    height: 4em;
     border: 1px solid black;
     border-radius: 5px;
     box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
@@ -61,10 +61,26 @@ body {
     cursor:pointer;
 }
 .color-fixed {
-    background-color: rgb(0, 0, 0);
+    background-color: black;
 }
 
-#btn-div {
+/* removes the default styling for the color input element*/
+::-webkit-color-swatch {
+    border: none;
+}
+::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+::-moz-color-swatch,
+::-moz-focus-inner {
+    border: none;
+}
+::-moz-focus-inner {
+    padding: 0;
+}
+/* **** */
+
+.btn-div {
     padding-left: 20%;
     display: flex;
     justify-content: center;
@@ -90,12 +106,21 @@ body {
     box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
     cursor:pointer;
 }
-
-#board-div {
-    width: 80%;
+#clear-board-container {
     display: flex;
     justify-content: center;
-    margin: 50px;
+    width: 100%;
+}
+#clear-board {
+    padding: 1em 10em;
+    margin-top: 2em;
+}
+
+#board-div {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    margin: 2em;
     padding-bottom: 2em;
     background-color: rgba(56, 56, 56, 0.582);
     border-radius: 35px;

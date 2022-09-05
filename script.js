@@ -10,34 +10,25 @@ window.onload = function() {
     if (localStorage['colorPalette'] !== undefined) {
         let savedColor = JSON.parse(localStorage.getItem('colorPalette'));
         for (let i = 0; i < colorDiv.length; i += 1) {
+            colorDiv[i].setAttribute('value', savedColor[i]);
             colorDiv[i].style.backgroundColor = savedColor[i];
         }
     }
-
-    // random number from 1 to 255
-    function randomRGB() {
-        return Math.floor(Math.random() * 255 + 1);
-    }
-
     // apply random color to the palette
     function randomColorGen() {
         const storagePalette = [];
 
         for (let i = 0; i < colorDiv.length; i += 1) {
-            let r = randomRGB();
-            let g = randomRGB();
-            let b = randomRGB();
-    
-            // check if the color is white (255, 255, 255) and change it
-            if (r && g && b === 255) {
-                r -= 1;
-            };
-    
-            let randomColor = `rgb(${r}, ${g}, ${b})`
+            // generates a color in hex value
+            // 16777215 is hex for #FFFFFF (WHITE) so using a number less garantees we don't fall on white
+            // padstart(6, 0) garantees us that we are not going to have string less than 6 characters
+            let randomHex = '#' + Math.floor(Math.random()*16777214).toString(16).padStart(6, 0);
+            // colorDiv[i].setAttribute('value', randomHex);
 
-            colorDiv[i].style.backgroundColor = randomColor;
             // save the color in array
-            storagePalette.push(randomColor);
+            storagePalette.push(randomHex);
+            colorDiv[i].value = randomHex;
+            colorDiv[i].style.backgroundColor = randomHex;
         }
 
         localStorage.setItem('colorPalette', JSON.stringify(storagePalette));
@@ -47,17 +38,13 @@ window.onload = function() {
     /********************************************************/
     const colorPal = document.getElementsByClassName('color');
 
-    // function to pick the color form the navbar and make it selected
-    for (let i = 0; i < colorPal.length; i += 1) {
-        colorPal[i].addEventListener('click', pickColor);
-    }
-
     // make black the deafult color picked
     let colorPicked = 'rgb(0,0,0)';
     
     function pickColor(element) {
         // getComputedStyle --0 get all the styles that the element hold in a object format
-        colorPicked = getComputedStyle(element.target)['backgroundColor'];
+        // colorPicked = getComputedStyle(element.target)['backgroundColor'];
+        colorPicked = element.target.value;
 
         for (let i = 0; i < colorPal.length; i += 1) {
             const color = colorPal[i];
@@ -69,6 +56,12 @@ window.onload = function() {
         element.target.classList.add('selected');
     }
 
+    // function to pick the color form the navbar and make it selected
+    for (let i = 0; i < colorPal.length; i += 1) {
+        colorPal[i].addEventListener('change', pickColor);
+        colorPal[i].addEventListener('click', pickColor);
+    }
+    
     // populate pixel grid and add eventlistener for drawing
     // 'desenhar' is set as false by default and only true when the windows and pixel event listener happens
     let desenhar = false;
@@ -87,11 +80,11 @@ window.onload = function() {
             pixelBoard.innerHTML = `${savedDrawing}`;
 
             const pixel = document.getElementsByClassName('pixel');
-            console.log(pixel);
             for (let i = 0; i < pixel.length; i += 1) {
                 pixel[i].addEventListener('mouseover', function(){
                     if(!desenhar) return
                     event.target.style.backgroundColor = colorPicked;
+                    console.log(colorPicked)
                 })
                 pixel[i].addEventListener('mousedown', function(){
                     event.target.style.backgroundColor = colorPicked;
@@ -112,6 +105,7 @@ window.onload = function() {
                 })
                 pixel.addEventListener('mousedown', function(){
                     pixel.style.backgroundColor = colorPicked;
+                    console.log(pixel.style.backgroundColor)
                 })
                 pixelBoard.appendChild(pixel);
             }
