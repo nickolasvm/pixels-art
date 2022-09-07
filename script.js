@@ -16,18 +16,27 @@ window.onload = function() {
     }
     // apply random color to the palette
     let storagePalette = {};
-
     if (savedColor != null) {
         storagePalette = savedColor;
     }
 
     function randomColorGen() {
-
+        let hexArray = [];
         for (let i = 0; i < colorDiv.length; i += 1) {
             // generates a color in hex value
             // 16777215 is hex for #FFFFFF (WHITE) so using a number less garantees we don't fall on white
             // padstart(6, 0) garantees us that we are not going to have string less than 6 characters
-            let randomHex = '#' + Math.floor(Math.random()*16777214).toString(16).padStart(6, 0);
+            let randomNumber = Math.floor(Math.random()*16777214);
+            hexArray.push(randomNumber);
+            if (i > 0) {
+                for (let j = 0; j < hexArray.length; j += 1) {
+                    if (hexArray[j] === hexArray[i]) {
+                        hexArray[i] += j;
+                    }
+                }
+            }
+
+            let randomHex = '#' + hexArray[i].toString(16).padStart(6, 0);
             // colorDiv[i].setAttribute('value', randomHex);
 
             // save the color in array
@@ -36,7 +45,6 @@ window.onload = function() {
             colorDiv[i].value = randomHex;
             colorDiv[i].style.backgroundColor = randomHex;
         }
-        // TODO colocar uma condicional para impedir cores repetidas
         localStorage.setItem('colorPalette', JSON.stringify(storagePalette));
         return storagePalette
     }

@@ -65,7 +65,15 @@ body {
 .color-fixed {
     background-color: black;
 }
-
+#color-0 {
+    background-color: #7E9953;
+}
+#color-1 {
+    background-color: #D9A739;
+}
+#color-2 {
+    background-color: #BD0808;
+}
 /* removes the default styling for the color input element*/
 ::-webkit-color-swatch {
     border: none;
