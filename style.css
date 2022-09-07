@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Verdana,Arial,"Helvetica Neue",Helvetica,sans-serif;;
 }
 
 /* para centralizar na tela o conteúdo */
@@ -9,9 +10,10 @@ body, html {
     height: 100%;
 }
 header {
-    width: 100%;
+    width: 80%;
 }
 body {
+
     background-image: url(./images/wallpaper_pixel_art.png);
     background-size: cover;
     display: flex;
@@ -107,11 +109,15 @@ body {
     cursor:pointer;
 }
 #clear-board-container {
+    width: 90%;
+    background-color: rgba(56, 56, 56, 0.582);
+    border-radius: 35px;
     display: flex;
     justify-content: center;
-    width: 100%;
+    /* width: 100%; */
 }
 #clear-board {
+    border-radius: 35px;
     padding: 1em 10em;
     margin-top: 2em;
 }

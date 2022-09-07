@@ -7,16 +7,16 @@ window.onload = function() {
     // localStorage.clear()
     // check if localStorage is empty or not
     // if not, update the color
+    let savedColor = JSON.parse(localStorage.getItem('colorPalette'));
     if (localStorage['colorPalette'] !== undefined) {
-        let savedColor = JSON.parse(localStorage.getItem('colorPalette'));
         for (let i = 0; i < colorDiv.length; i += 1) {
             colorDiv[i].setAttribute('value', savedColor[i]);
             colorDiv[i].style.backgroundColor = savedColor[i];
         }
     }
     // apply random color to the palette
+    const storagePalette = savedColor;
     function randomColorGen() {
-        const storagePalette = [];
 
         for (let i = 0; i < colorDiv.length; i += 1) {
             // generates a color in hex value
@@ -26,11 +26,11 @@ window.onload = function() {
             // colorDiv[i].setAttribute('value', randomHex);
 
             // save the color in array
-            storagePalette.push(randomHex);
+            storagePalette[i] = randomHex;
             colorDiv[i].value = randomHex;
             colorDiv[i].style.backgroundColor = randomHex;
         }
-
+        // TODO colocar uma condicional para impedir cores repetidas
         localStorage.setItem('colorPalette', JSON.stringify(storagePalette));
     }
     randomBtn.addEventListener('click', randomColorGen);
@@ -47,13 +47,14 @@ window.onload = function() {
         colorPicked = element.target.value;
 
         for (let i = 0; i < colorPal.length; i += 1) {
-            const color = colorPal[i];
-            color.classList.remove('selected');
-
-            for (let j = 0; j < colorPal[i].classList.length; j += 1) {
-            }
+            colorPal[i].classList.remove('selected');
         }
+        // grab the id of the color and update the storage pallet
+        const colorId = element.target.id.split('-')[1];
         element.target.classList.add('selected');
+        element.target.style.backgroundColor = colorPicked;
+        storagePalette[colorId] = colorPicked;
+        localStorage.setItem('colorPalette', JSON.stringify(storagePalette));
     }
 
     // function to pick the color form the navbar and make it selected
@@ -84,7 +85,7 @@ window.onload = function() {
                 pixel[i].addEventListener('mouseover', function(){
                     if(!desenhar) return
                     event.target.style.backgroundColor = colorPicked;
-                    console.log(colorPicked)
+                    console.log(event.target.style.backgroundColor)
                 })
                 pixel[i].addEventListener('mousedown', function(){
                     event.target.style.backgroundColor = colorPicked;
@@ -105,7 +106,6 @@ window.onload = function() {
                 })
                 pixel.addEventListener('mousedown', function(){
                     pixel.style.backgroundColor = colorPicked;
-                    console.log(pixel.style.backgroundColor)
                 })
                 pixelBoard.appendChild(pixel);
             }
