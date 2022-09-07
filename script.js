@@ -15,7 +15,12 @@ window.onload = function() {
         }
     }
     // apply random color to the palette
-    const storagePalette = savedColor;
+    let storagePalette = {};
+
+    if (savedColor != null) {
+        storagePalette = savedColor;
+    }
+
     function randomColorGen() {
 
         for (let i = 0; i < colorDiv.length; i += 1) {
@@ -26,15 +31,17 @@ window.onload = function() {
             // colorDiv[i].setAttribute('value', randomHex);
 
             // save the color in array
+            // storagePalette = {};
             storagePalette[i] = randomHex;
             colorDiv[i].value = randomHex;
             colorDiv[i].style.backgroundColor = randomHex;
         }
         // TODO colocar uma condicional para impedir cores repetidas
         localStorage.setItem('colorPalette', JSON.stringify(storagePalette));
+        return storagePalette
     }
     randomBtn.addEventListener('click', randomColorGen);
-
+    
     /********************************************************/
     const colorPal = document.getElementsByClassName('color');
 
@@ -82,12 +89,11 @@ window.onload = function() {
 
             const pixel = document.getElementsByClassName('pixel');
             for (let i = 0; i < pixel.length; i += 1) {
-                pixel[i].addEventListener('mouseover', function(){
+                pixel[i].addEventListener('mouseover', function(event){
                     if(!desenhar) return
                     event.target.style.backgroundColor = colorPicked;
-                    console.log(event.target.style.backgroundColor)
                 })
-                pixel[i].addEventListener('mousedown', function(){
+                pixel[i].addEventListener('mousedown', function(event){
                     event.target.style.backgroundColor = colorPicked;
                 })
             }
@@ -113,6 +119,7 @@ window.onload = function() {
     }
     // create a default 25 pixels board (5x5)
     includePixels(5);
+
     // when mouse is down, 'desenhar' turn into true, allowing to draw
     // when mouse is up, save the board in localStorage
     const pixelBoard = document.getElementById('pixel-board');
@@ -135,4 +142,5 @@ window.onload = function() {
         }
         localStorage.setItem('pixelBoard', pixelBoard.innerHTML);
     })
+      
 }
