@@ -3,6 +3,9 @@ window.onload = function() {
     const randomBtn = document.getElementById('button-random-color');
     const clearBtn = document.getElementById('clear-board');
     const boardDiv = document.getElementById('board-div');
+    const sizeBtn = document.getElementById('generate-board');
+    const sizeInput = document.getElementById('board-size');
+    const colorPal = document.getElementsByClassName('color');
 
     // localStorage.clear()
     // check if localStorage is empty or not
@@ -51,8 +54,6 @@ window.onload = function() {
     randomBtn.addEventListener('click', randomColorGen);
     
     /********************************************************/
-    const colorPal = document.getElementsByClassName('color');
-
     // make black the deafult color picked
     let colorPicked = 'rgb(0,0,0)';
     
@@ -88,6 +89,9 @@ window.onload = function() {
         const pixelBoard = document.createElement('div');
         pixelBoard.setAttribute('draggable', false)
         pixelBoard.setAttribute('id', 'pixel-board');
+        // changing the css variables so the board is a perfect square
+        pixelBoard.style.setProperty('--columns', tamanho);
+        pixelBoard.style.setProperty('--rows', tamanho);
         boardDiv.appendChild(pixelBoard);
 
         if (localStorage['pixelBoard'] !== undefined) {
@@ -125,30 +129,53 @@ window.onload = function() {
             }
         }
     }
-    // create a default 25 pixels board (5x5)
+    
+    // create a default 25 pixels board (5x5) ONLY if not in local storage already
     includePixels(5);
+    const pixelBoard = document.getElementById('pixel-board');
 
     // when mouse is down, 'desenhar' turn into true, allowing to draw
     // when mouse is up, save the board in localStorage
-    const pixelBoard = document.getElementById('pixel-board');
     window.addEventListener('mousedown', function(){
         desenhar = true
     })
     // when mouse is up, 'desenhar' is set as false
     window.addEventListener('mouseup', function(){
         desenhar = false
-
         localStorage.setItem('pixelBoard', pixelBoard.innerHTML);
     })
 
     // function to clean after Limpar is pressed
     const pixel = document.getElementsByClassName('pixel');
 
-    clearBtn.addEventListener('click', function(){
+    clearBtn.addEventListener('click', clearBoard)
+    function clearBoard() {
         for (i = 0; i < pixel.length; i += 1) {
             pixel[i].style.backgroundColor = 'white';
         }
         localStorage.setItem('pixelBoard', pixelBoard.innerHTML);
-    })
-      
+        console.log(pixelBoard.innerHTML.split('pixel').length - 1);
+    }
+
+    // fucntion to change the board size
+    sizeBtn.addEventListener('click', newBoard);
+    function newBoard() {
+        if (sizeInput.value === '') {
+            alert('Board inválido!');
+            return
+        }
+        let board = document.getElementById('pixel-board');
+        let size = parseInt(sizeInput.value);
+        // manter quadro entre 5x5 e 50x50
+        if (size > 50) {
+            size = 50;
+        } 
+        if (size < 5) {
+            size = 5;
+        }
+        board.remove()
+        localStorage.removeItem('pixelBoard');
+        includePixels(size);
+    }
+    // TODO ajustar a bagunça dos localstorage dos pixels e do board
 }
